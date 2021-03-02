@@ -4,28 +4,37 @@
       <div class="white--text pl-4 card-head">
         <v-card-title>Cadastrar Aluno</v-card-title>
       </div>
-      <v-form>
+      <v-form v-model="valid" ref="form">
         <v-row class="pl-8 pr-8 flex-column">
           <v-col>
             <v-text-field
+              v-model="name"
+              :rules="nameRules"
               label="Nome"
               class="black--text input-height"
+              required
             ></v-text-field>
           </v-col>
           <v-col>
             <v-text-field
+              v-model="email"
+              :rules="emailRules"
               label="Email"
               class="black--text input-height"
+              required
             ></v-text-field>
           </v-col>
           <v-col lg="4">
             <v-text-field
+              v-model="age"
               label="Idade"
               class="black--text input-height"
+              required
             ></v-text-field>
           </v-col>
           <v-col lg="4">
             <v-text-field
+              v-model="phone"
               label="Telefone"
               class="black--text input-height"
             ></v-text-field>
@@ -52,6 +61,20 @@
 
 <script>
 export default {
+  data() {
+    return {
+      valid: false,
+      name: "",
+      nameRules: [v => !!v || "Nome é obrigatório"],
+      email: "",
+      emailRules: [
+        v => !!v || "E-mail é obrigatório",
+        v => /.+@.+/.test(v) || "E-mail deve ser valido"
+      ],
+      age: "",
+      phone: ""
+    };
+  },
   props: {
     showAddUser: {
       type: Boolean
