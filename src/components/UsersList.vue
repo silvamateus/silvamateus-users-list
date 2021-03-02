@@ -73,7 +73,7 @@ export default {
   color: #676767;
 }
 .card-shadow {
-  box-shadow: 0px 5px 5px 0 rgba(0, 0, 0, 0.308) !important;
+  box-shadow: 0px 5px 5px 0 rgba(0, 0, 0, 0.212) !important;
 }
 .helper-color {
   color: #290d95 !important;
