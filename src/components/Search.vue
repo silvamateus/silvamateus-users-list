@@ -1,6 +1,6 @@
 <template>
-  <v-row class="d-flex justify-space-around">
-    <v-col class="d-flex ml-4 mt-4" lg="3" md="3" sm="3">
+  <v-row class="d-flex justify-space-around mt-13 mr-11">
+    <v-col class="d-flex ml-15 mt-6" lg="3" md="3" sm="3">
       <v-text-field
         class="size-1-5rem rounded-0"
         style="border-top-right-radius: .3rem !important; border-bottom-right-radius: .3rem !important;"
@@ -12,6 +12,25 @@
         class="size-1-5rem search-bar rounded-0"
         ><v-icon>mdi-magnify</v-icon></v-btn
       >
+    </v-col>
+    <v-spacer></v-spacer>
+    <v-col>
+      <v-row class="d-flex">
+        <v-col class="align-self-end">
+          <v-subheader>Filtros: </v-subheader>
+        </v-col>
+        <v-col>
+          <v-select
+            lg="3"
+            md="3"
+            sm="3"
+            :items="filters"
+            v-model="searchFilter"
+            solo
+            class="size-1-5rem mt-6 margin-left-n5rem"
+          ></v-select>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
@@ -47,5 +66,9 @@ export default {
   border: 0 !important;
   box-shadow: 5px 5px 5px -4px rgba(0, 0, 0, 0.2),
     0 6px 5px -5px rgba(0, 0, 0, 0.42) !important;
+}
+/* Apply negative margin */
+.margin-left-n5rem {
+  margin-left: -10rem !important;
 }
 </style>
