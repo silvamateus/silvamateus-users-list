@@ -1,6 +1,6 @@
 <template>
   <v-row class="d-flex justify-space-around">
-    <v-col class="d-flex search-bar ml-4 mt-4" lg="3" md="3" sm="3">
+    <v-col class="d-flex ml-4 mt-4" lg="3" md="3" sm="3">
       <v-text-field
         class="size-1-5rem rounded-0"
         style="border-top-right-radius: .3rem !important; border-bottom-right-radius: .3rem !important;"
@@ -9,7 +9,7 @@
       />
       <v-btn
         style="border-top-right-radius: .3rem !important; border-bottom-right-radius: .3rem !important;"
-        class="size-1-5rem position-absolute rounded-0"
+        class="size-1-5rem search-bar rounded-0"
         ><v-icon>mdi-magnify</v-icon></v-btn
       >
     </v-col>
