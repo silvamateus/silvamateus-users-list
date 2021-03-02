@@ -1,6 +1,6 @@
 <template>
   <v-row class="d-flex justify-space-between  mt-13">
-    <v-col class="d-flex ml-15 mt-6" lg="3" md="3">
+    <v-col class="d-flex ml-15 mt-6" lg="3" md="6" sm="8">
       <v-text-field
         class="size-1-5rem rounded-0"
         style="border-top-right-radius: .3rem !important; border-bottom-right-radius: .3rem !important;"

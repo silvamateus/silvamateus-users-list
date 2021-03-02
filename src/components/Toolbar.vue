@@ -17,7 +17,7 @@
             </div>
             <div class=" user-info">
               <p class=" text-caption">NOME</p>
-              <p class=" text-caption">Último login</p>
+              <p class=" text-caption">Último login: {{ lastLoginDate }}</p>
             </div>
             <div class="toolbar-btn">
               <v-btn tile depressed>
@@ -34,7 +34,13 @@
 
 <script>
 export default {
-  name: "Toolbar"
+  name: "Toolbar",
+  computed: {
+    lastLoginDate() {
+      const date = new Date();
+      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    }
+  }
 };
 </script>
 
