@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import eventBus from "@/bus/eventBus";
 export default {
   data() {
     return {
@@ -92,7 +93,8 @@ export default {
         name: this.name,
         email: this.email,
         age: this.age,
-        phone: this.phone
+        phone: this.phone,
+        photo: "https://100k-faces.glitch.me/random-image"
       };
       let users = [];
       if (localStorage.getItem("users"))
@@ -104,6 +106,7 @@ export default {
       this.age = "";
       this.phone = "";
       this.hideUserModal();
+      eventBus.$emit("updateUsers", users);
     }
   }
 };
