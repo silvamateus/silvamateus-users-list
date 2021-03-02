@@ -19,9 +19,11 @@
               <p class=" text-caption">NOME</p>
               <p class=" text-caption">Último login</p>
             </div>
-            <v-btn flat class="btn-absolute">
-              <v-icon>mdi-menu-down</v-icon>
-            </v-btn>
+            <div class="toolbar-btn">
+              <v-btn tile depressed>
+                <v-icon>mdi-menu-down</v-icon>
+              </v-btn>
+            </div>
           </div>
         </v-col>
       </v-row>
@@ -36,7 +38,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* Put Box shadow in the sides of the container */
 .box::before,
 .box::after {
@@ -75,14 +77,17 @@ export default {
   height: calc(100% + 1.9rem);
   width: 100%;
 }
-.toolbar-card::before {
+.toolbar-card::before,
+.toolbar-btn::before {
   content: " ";
   width: 15px;
   position: absolute;
   top: 0;
-  box-shadow: inset -15px 0 15px -15px rgba(0, 0, 0, 0.288);
   left: -15px;
   height: 100%;
+}
+.toolbar-card::before {
+  box-shadow: inset -15px 0 15px -15px rgba(0, 0, 0, 0.288);
 }
 /* Custom CSS adjusts */
 .border-around {
@@ -94,16 +99,23 @@ export default {
 .position-relative {
   position: relative !important;
 }
-.btn-absolute {
-  position: absolute !important;
+.toolbar-btn {
+  position: relative !important;
   height: 100% !important;
   right: 0px;
+}
+.toolbar-btn > button {
   background: linear-gradient(#ff6551, #f68e81) !important;
+  height: 100% !important;
+}
+.toolbar-btn::before {
+  box-shadow: inset -15px 0 15px -15px rgba(0, 0, 0, 0.288);
 }
 
 /* Align and set heights of user card */
 .user-info {
   padding-left: 0.5rem;
+  flex-basis: 100%;
 }
 .user-info p {
   height: 1px;
