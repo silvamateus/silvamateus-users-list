@@ -32,6 +32,7 @@
           <v-col lg="4">
             <v-text-field
               v-model="age"
+              :rules="ageRules"
               label="Idade"
               class="black--text input-height"
               required
@@ -80,6 +81,10 @@ export default {
         v => /.+@.+/.test(v) || "E-mail deve ser valido"
       ],
       age: "",
+      ageRules: [
+        v => !!v || "Idade é obrigatória",
+        v => !isNaN(parseInt(v)) || "Idade deve ser número"
+      ],
       phone: ""
     };
   },
