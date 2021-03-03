@@ -1,7 +1,7 @@
 <template>
-  <v-row class="mr-12 ml-12">
+  <v-row class="mr-16 ml-12" style="max-width: 81vw">
     <v-col v-for="(user, index) in users" :key="index" lg="3" md="4" sm="4">
-      <v-card class="d-flex align-center user-card card-shadow">
+      <v-card class="d-flex align-center user-card card-shadow ">
         <div class="ml-4 mt-6">
           <v-img
             class="rounded-circle border-around"
