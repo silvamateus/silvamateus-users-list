@@ -4,7 +4,12 @@
       <div class="white--text pl-4 card-head">
         <v-card-title>Cadastrar Aluno</v-card-title>
       </div>
-      <v-form v-model="valid" ref="form">
+      <v-form
+        v-model="valid"
+        ref="form"
+        @submit.prevent="saveUser"
+        lazy-validation
+      >
         <v-row class="pl-8 pr-8 flex-column">
           <v-col>
             <v-text-field
@@ -50,7 +55,9 @@
           </v-col>
           <v-col lg="4" class="pt-16 pl-16 ml-16">
             <v-card-actions>
-              <v-btn @click="saveUser" class="white--text pl-10 pr-10 btn-color"
+              <v-btn
+                @click="validateUser"
+                class="white--text pl-10 pr-10 btn-color"
                 >Salvar</v-btn
               >
             </v-card-actions>
@@ -87,8 +94,10 @@ export default {
     hideUserModal() {
       this.$emit("hideAddUser", !this.showAddUser);
     },
-    saveUser() {
+    validateUser() {
       this.$refs.form.validate();
+    },
+    saveUser() {
       const user = {
         name: this.name,
         email: this.email,
