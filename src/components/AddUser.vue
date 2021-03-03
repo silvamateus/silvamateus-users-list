@@ -55,9 +55,7 @@
           </v-col>
           <v-col lg="4" class="pt-16 pl-16 ml-16">
             <v-card-actions>
-              <v-btn
-                @click="validateUser"
-                class="white--text pl-10 pr-10 btn-color"
+              <v-btn type="submit" class="white--text pl-10 pr-10 btn-color"
                 >Salvar</v-btn
               >
             </v-card-actions>
@@ -94,28 +92,35 @@ export default {
     hideUserModal() {
       this.$emit("hideAddUser", !this.showAddUser);
     },
-    validateUser() {
-      this.$refs.form.validate();
-    },
-    saveUser() {
-      const user = {
-        name: this.name,
-        email: this.email,
-        age: this.age,
-        phone: this.phone,
-        photo: "https://100k-faces.glitch.me/random-image"
-      };
-      let users = [];
-      if (localStorage.getItem("users"))
-        users = JSON.parse(localStorage.getItem("users"));
-      users.push(user);
-      localStorage.setItem("users", JSON.stringify(users));
-      this.name = "";
-      this.email = "";
-      this.age = "";
-      this.phone = "";
-      this.hideUserModal();
-      eventBus.$emit("updateUsers", users);
+    async saveUser() {
+      if (this.$refs.form.validate()) {
+        const user = {
+          name: this.name,
+          email: this.email,
+          age: this.age,
+          phone: this.phone,
+          photo: ""
+        };
+        await fetch("https://randomuser.me/api/", {
+          method: "GET"
+        })
+          .then(response => response.json())
+          .then(
+            response => (user.photo = response.results[0].picture.thumbnail)
+          )
+          .catch(err => console.error(err));
+        let users = [];
+        if (localStorage.getItem("users"))
+          users = JSON.parse(localStorage.getItem("users"));
+        await users.push(user);
+        await localStorage.setItem("users", JSON.stringify(users));
+        this.name = "";
+        this.email = "";
+        this.age = "";
+        this.phone = "";
+        this.hideUserModal();
+        await eventBus.$emit("updateUsers", users);
+      }
     }
   }
 };

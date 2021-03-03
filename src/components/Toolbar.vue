@@ -1,7 +1,7 @@
 <template>
   <v-card class="overflow-hidden">
     <v-app-bar class="white--text rounded-0 toolbar-container" flat app>
-      <v-row class="box d-flex justify-end">
+      <v-row class="box d-flex justify-end" style="max-width: 81vw">
         <v-col lg="4" class="d-flex">
           <div
             class="toolbar-card rounded-0 white--text d-flex align-center pl-2rem position-relative"

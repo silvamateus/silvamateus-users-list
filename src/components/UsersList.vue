@@ -1,8 +1,8 @@
 <template>
-  <v-row class="mr-16 ml-12" style="max-width: 81vw">
-    <v-col v-for="(user, index) in users" :key="index" lg="3" md="4" sm="4">
-      <v-card class="d-flex align-center user-card card-shadow ">
-        <div class="ml-4 mt-6">
+  <v-row class="mr-16 ml-12" style="max-width: 80vw" v-if="users.length > 0">
+    <v-col v-for="(user, index) in users" :key="index" lg="3" md="4" sm="6">
+      <v-card class="d-flex align-center user-card card-shadow pl-3 pt-4 ">
+        <div>
           <v-img
             class="rounded-circle border-around"
             width="40"
@@ -10,15 +10,17 @@
             :src="user.photo"
           ></v-img>
         </div>
-        <div class="data ml-3 mt-6">
-          <p>{{ user.name }}</p>
+        <div class="d-flex flex-column data ml-3">
+          <p class="mt-2">{{ user.name }}</p>
           <p class="text-caption">Última avaliação: {{ updateDate }}</p>
         </div>
       </v-card>
-      <v-card class="card-shadow mt-1 d-flex justify-space-between">
-        <div class="append d-flex flex-column pt-4 pb-4">
-          <p class="text-caption ml-4">{{ user.email }}</p>
-          <p class="text-caption ml-4">{{ user.age }} anos {{ user.phone }}</p>
+      <v-card
+        class="card-shadow d-flex justify-space-between mt-1 pt-4 pb-4 pl-4"
+      >
+        <div class="append d-flex flex-column">
+          <p class="text-caption">{{ user.email }}</p>
+          <p class="text-caption">{{ user.age }} anos {{ user.phone }}</p>
         </div>
         <v-card-actions>
           <v-btn elevation="2" icon class="helper-color"
@@ -31,6 +33,11 @@
           >
         </v-card-actions>
       </v-card>
+    </v-col>
+  </v-row>
+  <v-row v-else class="ml-12">
+    <v-col>
+      <p>Não há usuários cadastrados</p>
     </v-col>
   </v-row>
 </template>
@@ -57,7 +64,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .border-around {
   border: 1px solid white;
 }
@@ -65,8 +72,13 @@ export default {
   height: 6rem;
 }
 .data > p {
-  line-height: 1px;
   text-align: left;
+  margin: 0;
+  padding: 0;
+}
+.data > p:first-child {
+  text-overflow: ellipsis;
+  overflow: hidden !important;
 }
 .append p {
   height: 3px;
