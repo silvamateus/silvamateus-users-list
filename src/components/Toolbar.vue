@@ -4,9 +4,9 @@
       <v-row class="box d-flex justify-end" style="max-width: 81vw">
         <v-col lg="4" class="d-flex">
           <div
-            class="toolbar-card rounded-0 white--text d-flex align-center pl-2rem position-relative"
+            class="toolbar-card rounded-0 white--text d-flex align-center position-relative pl-3"
           >
-            <div>
+            <div class="pr-2">
               <v-img
                 class="rounded-circle border-around"
                 width="40"
@@ -15,9 +15,9 @@
                 src="https://images.generated.photos/NDJMRXVcwlvoH9KdFjO5PpL1lAz-G7j2QEnKux836Ss/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5NTE3OTIuanBn.jpg"
               ></v-img>
             </div>
-            <div class=" user-info">
-              <p class=" text-caption">NOME</p>
-              <p class=" text-caption">Último login: {{ lastLoginDate }}</p>
+            <div class="user-info">
+              <p class="text-caption">NOME</p>
+              <p class="text-caption">Último login: {{ lastLoginDate }}</p>
             </div>
             <div class="toolbar-btn">
               <v-btn tile depressed>
@@ -120,7 +120,6 @@ export default {
 
 /* Align and set heights of user card */
 .user-info {
-  padding-left: 0.5rem;
   flex-basis: 100%;
 }
 .user-info p {

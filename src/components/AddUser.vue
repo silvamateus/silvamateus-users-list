@@ -1,7 +1,7 @@
 <template>
   <v-row class="card-bg justify-center align-center">
     <v-card class="card-container">
-      <div class="white--text pl-4 card-head">
+      <div class="white--text card-head">
         <v-card-title>Cadastrar Aluno</v-card-title>
       </div>
       <v-form
@@ -10,7 +10,7 @@
         @submit.prevent="saveUser"
         lazy-validation
       >
-        <v-row class="pl-8 pr-8 flex-column">
+        <v-row class="flex-column">
           <v-col>
             <v-text-field
               v-model="name"
@@ -47,14 +47,14 @@
           </v-col>
         </v-row>
         <v-row class=" justify-space-between">
-          <v-col class=" pt-16">
+          <v-col class="">
             <v-card-actions>
               <v-btn @click="hideUserModal($event)" text class="cancel-btn"
                 >Cancelar</v-btn
               >
             </v-card-actions>
           </v-col>
-          <v-col lg="4" class="pt-16 pl-16 ml-16">
+          <v-col lg="4" class="">
             <v-card-actions>
               <v-btn type="submit" class="white--text pl-10 pr-10 btn-color"
                 >Salvar</v-btn
@@ -104,7 +104,8 @@ export default {
           email: this.email,
           age: this.age,
           phone: this.phone,
-          photo: ""
+          photo: "",
+          active: true
         };
         await fetch("https://randomuser.me/api/", {
           method: "GET"

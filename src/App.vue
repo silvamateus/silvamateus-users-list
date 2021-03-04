@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <toolbar></toolbar>
-    <main-container />
+    <main-container class="pl-12" />
   </v-app>
 </template>
 
