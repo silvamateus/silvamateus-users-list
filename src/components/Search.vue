@@ -1,46 +1,35 @@
 <template>
-  <v-row class="d-flex justify-space-between  mt-13">
-    <v-col class="d-flex ml-15 mt-6" lg="3" md="6" sm="8">
+  <v-row class="justify-start pt-12">
+    <v-col class="d-flex" lg="3" md="3" sm="8">
       <v-text-field
-        class="size-1-5rem rounded-0"
-        style="border-top-right-radius: .3rem !important; border-bottom-right-radius: .3rem !important;"
+        @input="searchUsers"
         label="Busque por nomes ou emails"
+        append-icon="mdi-magnify"
         solo
       />
-      <v-btn
-        color="white"
-        style="border-top-right-radius: .3rem !important; border-bottom-right-radius: .3rem !important;"
-        class="size-1-5rem search-bar rounded-0"
-        ><v-icon>mdi-magnify</v-icon></v-btn
-      >
     </v-col>
-    <v-col lg="8" md="6">
-      <v-row class="margin-right-5rem justify-end">
-        <v-subheader class="align-self-center mt-6">Filtros: </v-subheader>
-        <v-col lg="4">
-          <v-select
-            lg="3"
-            md="3"
-            sm="3"
-            :items="filters"
-            v-model="searchFilter"
-            solo
-            class="size-1-5rem mt-6 margin-left-n5rem"
-            style="min-width: 7rem !important;"
-          ></v-select>
-        </v-col>
-        <v-col class="mr-12 d-flex justify-center" lg="4">
-          <v-btn class="mt-6 mr-16 size-1-5rem add-user-btn white--text"
-            ><v-icon>mdi-account-plus</v-icon>
-            <span
-              @click="showAddUser = !showAddUser"
-              class="ml-1 font-weight-bold"
-              >novo aluno</span
-            >
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-col>
+    <div class="d-flex justify-end">
+      <v-subheader class="align-self-center">Filtros: </v-subheader>
+      <v-col lg="4">
+        <v-select
+          lg="3"
+          md="3"
+          :items="filters"
+          v-model="searchFilter"
+          solo
+          class="size-3rem"
+          style="min-width: 7rem !important;"
+        ></v-select>
+      </v-col>
+      <v-col lg="4" style="max-width: 20vw">
+        <v-btn class="size-3rem add-user-btn white--text"
+          ><v-icon>mdi-account-plus</v-icon>
+          <span @click="showAddUser = !showAddUser" class="font-weight-bold"
+            >novo aluno</span
+          >
+        </v-btn>
+      </v-col>
+    </div>
     <v-col v-if="showAddUser">
       <add-user :showAddUser="showAddUser" @hideAddUser="hideModal"
     /></v-col>
@@ -49,30 +38,43 @@
 
 <script>
 import AddUser from "./AddUser.vue";
+import eventBus from "@/bus/eventBus";
 export default {
   data() {
     return {
       searchFilter: "todos",
       filters: ["todos"],
       users: [],
-      showAddUser: false
+      showAddUser: false,
+      search: []
     };
   },
   components: { AddUser },
   methods: {
     hideModal(e) {
       this.showAddUser = e;
+    },
+    searchUsers(e) {
+      this.search =
+        this.users &&
+        this.users.filter(
+          user => user.name.includes(e) || user.email.includes(e)
+        );
+      console.log(this.search);
+      if (e === "")
+        eventBus.$emit("searchUsers", { search: [], searching: false });
+      eventBus.$emit("searchUsers", { search: this.search, searching: true });
     }
   },
   created() {
-    this.users = localStorage.getItem("users");
+    this.users = JSON.parse(localStorage.getItem("users"));
   }
 };
 </script>
 
 <style scoped>
 /* custom size */
-.size-1-5rem {
+.size-3rem {
   height: 3rem !important;
 }
 /* Set position relative */
@@ -90,7 +92,7 @@ export default {
 .add-user-btn {
   background-color: #ff6450 !important;
 }
-/* Apply negative margin */
+/* Apply margin */
 .margin-right-5rem {
   margin-right: 75px !important;
 }
