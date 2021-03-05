@@ -1,15 +1,19 @@
 <template>
-  <v-row class="justify-start pt-12">
+  <v-row class="justify-start pt-12" style="min-width: 80vw">
     <v-col class="d-flex" lg="3" md="3" sm="8">
       <v-text-field
+        v-model="usersControl"
         @input="searchUsers"
         label="Busque por nomes ou emails"
         append-icon="mdi-magnify"
         solo
       />
     </v-col>
-    <div class="d-flex justify-end">
-      <v-subheader class="align-self-center">Filtros: </v-subheader>
+    <div
+      class="d-flex justify-end"
+      style="max-width: 56.5vw; min-width: 56.5vw"
+    >
+      <v-subheader class="pt-6">Filtros: </v-subheader>
       <v-col lg="4">
         <v-select
           lg="3"
@@ -17,11 +21,12 @@
           :items="filters"
           v-model="searchFilter"
           solo
-          class="size-3rem"
-          style="min-width: 7rem !important;"
+          class="d-flex justify-end"
+          style="min-width: 7rem;"
+          @change="changeSearchFilter"
         ></v-select>
       </v-col>
-      <v-col lg="4" style="max-width: 20vw">
+      <v-col lg="4" class=" d-flex justify-end">
         <v-btn class="size-3rem add-user-btn white--text"
           ><v-icon>mdi-account-plus</v-icon>
           <span @click="showAddUser = !showAddUser" class="font-weight-bold"
@@ -43,10 +48,11 @@ export default {
   data() {
     return {
       searchFilter: "todos",
-      filters: ["todos"],
+      filters: ["todos", "ativos", "inativos"],
       users: [],
       showAddUser: false,
-      search: []
+      search: [],
+      usersControl: ""
     };
   },
   components: { AddUser },
@@ -54,15 +60,53 @@ export default {
     hideModal(e) {
       this.showAddUser = e;
     },
+    searchCriteria(term) {
+      const filter = {
+        todos:
+          this.users &&
+          this.users.filter(
+            user => user.name.includes(term) || user.name.includes(term)
+          ),
+        ativos:
+          this.users &&
+          this.users.filter(
+            user =>
+              (user.name.includes(term) || user.name.includes(term)) &&
+              user.active
+          ),
+        inativos:
+          this.users &&
+          this.users.filter(
+            user =>
+              (user.name.includes(term) || user.name.includes(term)) &&
+              !user.active
+          )
+      };
+      return filter[this.searchFilter];
+    },
+    searchWithoutText() {
+      if (this.searchFilter === "ativos") {
+        this.search = this.users && this.users.filter(user => user.active);
+      } else if (this.searchFilter === "inativos") {
+        this.search = this.users && this.users.filter(user => !user.active);
+      } else {
+        this.search = this.users && this.users.filter(user => user);
+      }
+    },
     searchUsers(e) {
-      this.search =
-        this.users &&
-        this.users.filter(
-          user => user.name.includes(e) || user.email.includes(e)
-        );
-      console.log(this.search);
-      if (e === "")
-        eventBus.$emit("searchUsers", { search: [], searching: false });
+      if (e === "") {
+        this.searchWithoutText();
+      } else {
+        this.search = this.searchCriteria(e);
+      }
+      eventBus.$emit("searchUsers", { search: this.search, searching: true });
+    },
+    changeSearchFilter() {
+      if (this.usersControl === "") {
+        this.searchWithoutText();
+      } else {
+        this.search = this.searchCriteria(this.usersControl);
+      }
       eventBus.$emit("searchUsers", { search: this.search, searching: true });
     }
   },
@@ -81,19 +125,8 @@ export default {
 .position-relative {
   position: relative !important;
 }
-/* Search bar style */
-.search-bar {
-  right: 8px;
-  border: 0 !important;
-  box-shadow: 5px 5px 5px -4px rgba(0, 0, 0, 0.2),
-    0 6px 5px -5px rgba(0, 0, 0, 0.42) !important;
-}
 /* Add User Style */
 .add-user-btn {
   background-color: #ff6450 !important;
-}
-/* Apply margin */
-.margin-right-5rem {
-  margin-right: 75px !important;
 }
 </style>
