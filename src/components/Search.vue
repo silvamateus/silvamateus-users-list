@@ -1,5 +1,5 @@
 <template>
-  <v-row class="justify-start pt-12" style="min-width: 80vw">
+  <v-row class="justify-start pt-12">
     <v-col class="d-flex" lg="3" md="3" sm="8">
       <v-text-field
         v-model="usersControl"
@@ -9,10 +9,7 @@
         solo
       />
     </v-col>
-    <div
-      class="d-flex justify-end"
-      style="max-width: 56.5vw; min-width: 56.5vw"
-    >
+    <div class="d-flex justify-end limit">
       <v-subheader class="pt-6">Filtros: </v-subheader>
       <v-col lg="4">
         <v-select
@@ -120,6 +117,9 @@ export default {
 /* custom size */
 .size-3rem {
   height: 3rem !important;
+}
+.limit {
+  min-width: 56.5vw;
 }
 /* Set position relative */
 .position-relative {

@@ -9,7 +9,7 @@
       <p>Não há usuários com os critérios de busca utilizado</p>
     </v-col>
   </v-row>
-  <v-row style="min-width: 81vw " v-else-if="search.search.length > 0">
+  <v-row class="limit" v-else-if="search.search.length > 0">
     <v-col
       v-for="(user, index) in search.search"
       :key="index"
@@ -20,7 +20,7 @@
       <user-list :user="user" />
     </v-col>
   </v-row>
-  <v-row class="" style="max-width: 81vw" v-else>
+  <v-row class="limit" v-else>
     <v-col v-for="(user, index) in users" :key="index" lg="3" md="4" sm="6">
       <user-list :user="user" />
     </v-col>
@@ -47,4 +47,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.limit {
+  min-width: 81vw !important;
+  max-width: 81vw !important;
+}
+</style>
