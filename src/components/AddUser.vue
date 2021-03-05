@@ -9,6 +9,7 @@
         ref="form"
         @submit.prevent="saveUser"
         lazy-validation
+        class="pl-6 pr-6"
       >
         <v-row class="flex-column">
           <v-col>
