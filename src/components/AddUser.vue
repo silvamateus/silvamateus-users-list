@@ -1,8 +1,11 @@
 <template>
   <v-row class="card-bg justify-center align-center">
     <v-card class="card-container">
-      <div class="white--text card-head">
+      <div
+        class="white--text card-head d-flex align-center justify-space-between pr-8"
+      >
         <v-card-title>Cadastrar Aluno</v-card-title>
+        <span @click="hideUserModal" class="pointer">x</span>
       </div>
       <v-form
         v-model="valid"
@@ -50,7 +53,7 @@
         <v-row class=" justify-space-between">
           <v-col class="">
             <v-card-actions>
-              <v-btn @click="hideUserModal($event)" text class="cancel-btn"
+              <v-btn @click="hideUserModal()" text class="cancel-btn"
                 >Cancelar</v-btn
               >
             </v-card-actions>
@@ -158,5 +161,8 @@ export default {
 }
 .btn-color {
   background-color: #ff6450 !important;
+}
+.pointer {
+  cursor: pointer;
 }
 </style>
